@@ -1,0 +1,10 @@
+# Ignorar pastas específicas do Cypress
+cypress/e2e/1-getting-started/
+cypress/e2e/2-advanced-examples/
+cypress/e2e/atividade-triangulo/
+cypress/e2e/teste-login/
+
+# Ignorar dependências e arquivos do Node
+node_modules/
+.env
+.DS_Store
