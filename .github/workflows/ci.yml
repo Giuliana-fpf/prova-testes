@@ -1,52 +1,30 @@
-    <reference types="cypress" />
-    
-    describe("Pega elementos básicos", () =>{
-    it("Verificar se a página se encontra disponível", () =>{
-    cy.visit("https://wcaquino.me/cypress/componentes.html")
-    
-    cy.title().should("be.equal", "Campo de Treinamento")
-    cy.title().should("contain", "Treinamento")
-    })
+name: Cypress Tests
 
-    it("Encontrar e clicar no botão", () => {
-    cy.visit("https://wcaquino.me/cypress/componentes.html")
-    
-    cy.get('#buttonSimple')
-    .click()
-    .should("value", "Obrigado!")
-    })
-  })
-    
-    describe("Faz cadastro de usuário", () => {
+on:
+  push:
+    branches:
+      - main # ou a branch principal do seu projeto, como 'master'
+  pull_request:
+    branches:
+      - main # ou a branch principal do seu projeto
 
-    it.only("Adiciona nome e sobrenome e cadastra", () => {
-    cy.visit("https://wcaquino.me/cypress/componentes.html")
-    
-    cy.get('#formNome').type("Igor")
-    cy.get('[data-cy="dataSobrenome"]').type("Alves")
-    
-    cy.get('#formSexoMasc').check()
-    
-    cy.get('#formSexoMasc').should("be.checked")
-    
-    cy.get('#formComidaCarne').click()
-    
-    cy.get('[data-testid="dataEsportes"]').select("futebol")
-    
-    cy.get('[value="futebol"]').select
-    
-    cy.get('#elementosForm').type("Teste digitando")
-    
-    cy.get('#formCadastrar').click()
-    })
-  })
-    
-    basic.cy
-    
-    spec.cy
-    
-    describe('template spec', () => {
-    it('passes', () => {
-    cy.visit('https://example.cypress.io')
-    })
-  })
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest # O sistema operacional onde os testes serão executados
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4 # Baixa o código do seu repositório
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18' # Use a versão do Node.js que seu projeto requer
+
+      - name: Install Dependencies
+        run: npm i
+
+      - name: Run Cypress Tests
+        run: npx cypress run # Ou o comanzdo que você usa para rodar o Cypress localmente
+        env:
+          CI: true # Garante que o Cypress seja executado em modo CI
